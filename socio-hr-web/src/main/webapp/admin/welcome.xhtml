@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+<f:metadata>
+    <f:viewParam name="login" value="#{loginSession.login}"/>
+</f:metadata>
+<h:head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <h:outputStylesheet library="css" name="bootstrap.css"/>
+    <h:outputStylesheet library="css" name="pages/admin.css"/>
+
+</h:head>
+<h:body>
+    <h:form>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <h:link styleClass="navbar-brand" value="Socio HR" outcome="/index"/>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <h:commandLink value="Logout" action="#{loginSession.doLogout}"/>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </h:form>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul id="sidebar" class="nav nav-sidebar">
+                    <li id="articlesLink" class="active sidebar-item">
+                        <a href="#">Articles</a>
+                    </li>
+                    <li id="categoriesLink" class="sidebar-item">
+                        <a href="#">Categories</a>
+                    </li>
+                    <c:if test="${loginSession.role eq 'ADMIN'}">
+                        <li id="usersLink" class="sidebar-item">
+                            <a href="#">Users</a>
+                        </li>
+                    </c:if>
+                </ul>
+            </div>
+
+            <div id="content" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <div id="articlesDiv">
+                    <ui:include src="pages/articles.xhtml"/>
+                </div>
+                <div id="categoriesDiv" style="display: none">
+                    <ui:include src="pages/categories.xhtml"/>
+                </div>
+                <c:if test="${loginSession.role eq 'ADMIN'}">
+                    <div id="usersDiv" style="display: none">
+                        <ui:include src="pages/users.xhtml"/>
+                    </div>
+                </c:if>
+            </div>
+        </div>
+    </div>
+
+    <h:outputScript library="js" name="jquery-2.1.4.min.js"/>
+    <h:outputScript library="js" name="bootstrap.min.js"/>
+    <h:outputScript>
+        $(".sidebar-item").on("click", function(ev) {
+            $('.sidebar-item').removeClass("active");
+            $(ev.currentTarget).addClass("active");
+
+            $('#content').children().hide();
+            switch (ev.currentTarget.id) {
+                case 'articlesLink':
+                    var articles = $('#articlesDiv');
+                    articles.show();
+                    break;
+                case 'categoriesLink':
+                    var categories = $('#categoriesDiv');
+                    categories.show();
+                    break;
+                case 'usersLink':
+                    var users = $('#usersDiv');
+                    if (users)
+                        users.show();
+                    break;
+            }
+        });
+    </h:outputScript>
+</h:body>
+
+</html>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:body>
+    <ui:composition>
+
+        <h:form>
+            <div class="table-responsive">
+                <h:dataTable value="#{usersBean.users}" var="user"
+                        styleClass="table table-striped">
+
+                    <h:column>
+                        <f:facet name="header">
+                            User name
+                        </f:facet>
+                        #{user.name}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            User email
+                        </f:facet>
+                        #{user.email}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            User role
+                        </f:facet>
+                        #{user.role}
+                    </h:column>
+                    <h:column>
+                        <h:commandLink action="#{userEdit.loadUser(user.id)}">
+                            <span class="glyphicon glyphicon-edit"/>
+                            <f:ajax render="userEditForm"/>
+                        </h:commandLink>
+                    </h:column>
+                </h:dataTable>
+            </div>
+        </h:form>
+
+        <h:outputText id="userEditForm"
+                      value="#{userEdit.user.name}"/>
+
+    </ui:composition>
+</h:body>
+</html>
