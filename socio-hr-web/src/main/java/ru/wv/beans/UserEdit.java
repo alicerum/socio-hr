@@ -23,7 +23,7 @@ public class UserEdit {
         this.user = user;
     }
 
-//    public void loadUser(long id) {
-//        user = userService.get(id).orElse(null);
-//    }
+    public void loadUser(long id) {
+        user = userService.get(id).orElse(null);
+    }
 }
