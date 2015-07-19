@@ -48,7 +48,11 @@
                         </h:commandLink>
                     </h:column>
                     <h:column>
-                        <span class="glyphicon glyphicon-remove"/>
+                        <h:commandLink action="#{userEdit.loadUser(user.id)}"
+                                a:data-toggle="modal" a:data-target="#userDelete">
+                            <f:ajax render=":userDeleteForm"/>
+                            <span class="glyphicon glyphicon-remove"/>
+                        </h:commandLink>
                     </h:column>
                 </h:dataTable>
             </div>
@@ -83,6 +87,27 @@
                             <h:commandButton styleClass="btn btn-primary" action="#{userEdit.saveUser}"
                                              value="Save changes">
                                 <f:ajax execute="userEditForm" render=":usersTable"/>
+                            </h:commandButton>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </h:panelGroup>
+
+        <h:panelGroup id="userDelete" layout="block"
+                      styleClass="modal fade" a:role="dialog" a:aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <h:form id="userDeleteForm">
+                        <div class="modal-body">
+                            Really delete user #{userEdit.name}?
+                            <h:inputHidden value="#{userEdit.id}"/>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                            <h:commandButton styleClass="btn btn-primary" action="#{userEdit.deleteUser}"
+                                             value="Yes" a:data-dismiss="modal">
+                                <f:ajax execute="userDeleteForm" render=":usersForm:usersTable"/>
                             </h:commandButton>
                         </div>
                     </h:form>

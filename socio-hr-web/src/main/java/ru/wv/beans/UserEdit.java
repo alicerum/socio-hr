@@ -61,6 +61,10 @@ public class UserEdit implements Serializable {
         name = "";
     }
 
+    public void deleteUser() {
+        userService.delete(id);
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }

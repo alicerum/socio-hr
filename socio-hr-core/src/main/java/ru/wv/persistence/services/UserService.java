@@ -74,4 +74,9 @@ public class UserService {
 
         return entityManager.createQuery(cq).getResultList();
     }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    public void delete(long id) {
+        get(id).ifPresent(entityManager::remove);
+    }
 }
