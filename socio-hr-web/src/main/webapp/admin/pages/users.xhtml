@@ -11,14 +11,18 @@
         <h:form>
             <h:commandLink styleClass="btn btn-default" action="#{userEdit.newUser}"
                            a:data-toggle="modal" a:data-target="#userEdit">
-                <span class="glyphicon glyphicon-plus"/>Add user
+                <span class="glyphicon glyphicon-plus"/> Add user
                 <f:ajax render=":userEditForm"/>
+            </h:commandLink>&#160;
+            <h:commandLink styleClass="btn btn-default">
+                <span class="glyphicon glyphicon-refresh"/> Refresh
+                <f:ajax render=":usersForm:usersTable"/>
             </h:commandLink>
         </h:form>
 
         <h:form id="usersForm">
-            <div class="table-responsive">
-                <h:dataTable id="usersTable" value="#{usersBean.users}" var="user"
+            <h:panelGroup id="usersTable" layout="block" styleClass="table-responsive">
+                <h:dataTable value="#{usersBean.users}" var="user"
                              binding="#{usersBean.dataTable}"
                              styleClass="table table-striped">
 
@@ -55,7 +59,7 @@
                         </h:commandLink>
                     </h:column>
                 </h:dataTable>
-            </div>
+            </h:panelGroup>
         </h:form>
 
         <h:panelGroup id="userEdit" layout="block"
@@ -85,7 +89,7 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             <h:commandButton styleClass="btn btn-primary" action="#{userEdit.saveUser}"
-                                             value="Save changes">
+                                             value="Save changes" a:data-dismiss="modal">
                                 <f:ajax execute="userEditForm" render=":usersTable"/>
                             </h:commandButton>
                         </div>
@@ -107,7 +111,7 @@
                             <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
                             <h:commandButton styleClass="btn btn-primary" action="#{userEdit.deleteUser}"
                                              value="Yes" a:data-dismiss="modal">
-                                <f:ajax execute="userDeleteForm" render=":usersForm:usersTable"/>
+                                <f:ajax execute="userDeleteForm" render=":usersTable"/>
                             </h:commandButton>
                         </div>
                     </h:form>
