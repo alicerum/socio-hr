@@ -1,5 +1,7 @@
 package ru.wv.persistence.services;
 
+import org.mindrot.jbcrypt.BCrypt;
+import ru.wv.persistence.entities.Role;
 import ru.wv.persistence.entities.User;
 import ru.wv.persistence.entities.User_;
 
@@ -20,6 +22,7 @@ public class UserService {
     @PersistenceContext
     private EntityManager entityManager;
 
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Optional<User> get(long id) {
         return Optional.ofNullable(entityManager.find(User.class, id));
     }
@@ -28,6 +31,23 @@ public class UserService {
     public User persist(User user) {
         entityManager.persist(user);
         return user;
+    }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    public void update(long id, String name, Optional<String> password, String email, Role role) {
+        get(id).ifPresent(user -> {
+            user.setName(name.trim());
+            user.setEmail(email.trim());
+            user.setRole(role);
+
+            password.ifPresent(pwd -> {
+                if (pwd.trim().length() > 0) {
+                    String pwdHash = BCrypt.hashpw(pwd.trim(), BCrypt.gensalt());
+                    user.setPwdHash(pwdHash);
+                }
+            });
+
+        });
     }
 
     public Optional<User> get(String name) {
