@@ -2,6 +2,7 @@ package ru.wv.persistence.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 @Entity
 @Table(name = "CATEGORIES")
@@ -16,6 +17,12 @@ public class Category {
 
     @ManyToOne(optional = true, fetch = FetchType.EAGER)
     private Category parent;
+
+    @OneToMany(mappedBy = "parent")
+    private Set<Category> children;
+
+    @NotNull
+    private int order;
 
     public long getId() {
         return id;
@@ -39,5 +46,21 @@ public class Category {
 
     public void setParent(Category parent) {
         this.parent = parent;
+    }
+
+    public Set<Category> getChildren() {
+        return children;
+    }
+
+    public void setChildren(Set<Category> children) {
+        this.children = children;
+    }
+
+    public int getOrder() {
+        return order;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
     }
 }

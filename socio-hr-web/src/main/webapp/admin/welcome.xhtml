@@ -30,6 +30,7 @@
                     <h:link styleClass="navbar-brand" value="Socio HR" outcome="/index"/>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
+                    <p class="navbar-text pull-right">You are logged in as: <strong>#{loginSession.login}</strong></p>
                     <ul class="nav navbar-nav navbar-right">
                         <li>
                             <h:commandLink value="Logout" action="#{loginSession.doLogout}"/>

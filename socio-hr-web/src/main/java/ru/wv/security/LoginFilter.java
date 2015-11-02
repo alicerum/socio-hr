@@ -1,6 +1,6 @@
 package ru.wv.security;
 
-import ru.wv.beans.LoginSession;
+import ru.wv.beans.users.LoginSession;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;

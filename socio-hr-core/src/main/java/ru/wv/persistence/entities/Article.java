@@ -7,7 +7,8 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "ARTICLES",
         uniqueConstraints = {
-                @UniqueConstraint(name = "article_evernote_guid_unique",
+                @UniqueConstraint(
+                        name = "article_evernote_guid_unique",
                         columnNames = {"evernoteGuid"}
                 )
         }

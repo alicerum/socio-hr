@@ -1,4 +1,4 @@
-package ru.wv.beans;
+package ru.wv.beans.users;
 
 import ru.wv.persistence.entities.User;
 import ru.wv.persistence.services.UserService;
@@ -11,7 +11,7 @@ import javax.faces.view.ViewScoped;
 import java.io.Serializable;
 import java.util.List;
 
-@ManagedBean
+@ManagedBean(name = "usersBean")
 @ViewScoped
 public class UsersBean implements Serializable {
 

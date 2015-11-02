@@ -7,7 +7,49 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:body>
     <ui:composition>
-        Categories!
+
+        <h:form id="categoriesForm">
+            <h:panelGroup id="categoriesTable" layout="block" styleClass="table-responsive">
+                <h:dataTable value="#{usersBean.users}" var="user"
+                             binding="#{usersBean.dataTable}"
+                             styleClass="table table-striped">
+
+                    <h:column>
+                        <f:facet name="header">
+                            User name
+                        </f:facet>
+                        #{user.name}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            User email
+                        </f:facet>
+                        #{user.email}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            User role
+                        </f:facet>
+                        #{user.role}
+                    </h:column>
+                    <h:column>
+                        <h:commandLink action="#{userEdit.loadUser(user.id)}"
+                                       a:data-toggle="modal" a:data-target="#userEdit">
+                            <span class="glyphicon glyphicon-edit"/>
+                            <f:ajax render=":userEditForm"/>
+                        </h:commandLink>
+                    </h:column>
+                    <h:column>
+                        <h:commandLink action="#{userEdit.loadUser(user.id)}"
+                                       a:data-toggle="modal" a:data-target="#userDelete">
+                            <f:ajax render=":userDeleteForm"/>
+                            <span class="glyphicon glyphicon-remove"/>
+                        </h:commandLink>
+                    </h:column>
+                </h:dataTable>
+            </h:panelGroup>
+        </h:form>
+
     </ui:composition>
 </h:body>
 </html>

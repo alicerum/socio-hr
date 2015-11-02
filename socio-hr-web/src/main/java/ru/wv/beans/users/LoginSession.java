@@ -1,4 +1,4 @@
-package ru.wv.beans;
+package ru.wv.beans.users;
 
 import org.mindrot.jbcrypt.BCrypt;
 import ru.wv.persistence.entities.User;

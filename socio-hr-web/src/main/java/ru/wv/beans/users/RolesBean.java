@@ -1,4 +1,4 @@
-package ru.wv.beans;
+package ru.wv.beans.users;
 
 import ru.wv.persistence.entities.Role;
 
