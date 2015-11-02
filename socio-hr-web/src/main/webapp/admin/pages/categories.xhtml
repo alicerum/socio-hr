@@ -11,27 +11,27 @@
 
         <h:form id="categoriesForm">
             <h:panelGroup id="categoriesTable" layout="block" styleClass="table-responsive">
-                <h:dataTable value="#{categoriesBean.categories}" var="user"
+                <h:dataTable value="#{categoriesBean.categories}" var="category"
                              binding="#{categoriesBean.dataTable}"
                              styleClass="table table-striped">
 
                     <h:column>
                         <f:facet name="header">
-                            User name
+                            Category name
                         </f:facet>
-                        #{user.name}
+                        #{category.name}
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            User email
+                            Category position
                         </f:facet>V
-                        #{user.email}
+                        #{category.position}
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            User role
+                            Parent category
                         </f:facet>
-                        #{user.role}
+                        #{category.parent.name}
                     </h:column>
                     <h:column>
                         <h:commandLink action="#{userEdit.loadUser(user.id)}"

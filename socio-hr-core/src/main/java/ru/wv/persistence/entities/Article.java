@@ -3,16 +3,10 @@ package ru.wv.persistence.entities;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.sql.Date;
 
 @Entity
-@Table(name = "ARTICLES",
-        uniqueConstraints = {
-                @UniqueConstraint(
-                        name = "article_evernote_guid_unique",
-                        columnNames = {"evernoteGuid"}
-                )
-        }
-)
+@Table(name = "ARTICLES")
 @SequenceGenerator(name = "articleIdGenerator", sequenceName = "article_id_seq")
 public class Article {
     @Id
@@ -24,10 +18,10 @@ public class Article {
     private String title;
     @NotNull @Lob
     private String text;
-    private String evernoteGuid;
-    private String hash;
     @ManyToOne(optional = true, fetch = FetchType.EAGER)
     private Category category;
+    @NotNull
+    private Date date;
 
     public long getId() {
         return id;
@@ -61,27 +55,19 @@ public class Article {
         this.title = title;
     }
 
-    public String getEvernoteGuid() {
-        return evernoteGuid;
-    }
-
-    public void setEvernoteGuid(String evernoteGuid) {
-        this.evernoteGuid = evernoteGuid;
-    }
-
-    public String getHash() {
-        return hash;
-    }
-
-    public void setHash(String hash) {
-        this.hash = hash;
-    }
-
     public Category getCategory() {
         return category;
     }
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

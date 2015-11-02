@@ -28,20 +28,4 @@ public class ArticleService {
         entityManager.persist(article);
         return article;
     }
-
-    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-    public Optional<Article> get(String guid) {
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-
-        CriteriaQuery<Article> cq = cb.createQuery(Article.class);
-        Root<Article> articles = cq.from(Article.class);
-        cq.select(articles);
-        cq.where(cb.equal(articles.get(Article_.evernoteGuid), guid));
-
-        try {
-            return Optional.of(entityManager.createQuery(cq).getSingleResult());
-        } catch (NoResultException e) {
-            return Optional.empty();
-        }
-    }
 }
