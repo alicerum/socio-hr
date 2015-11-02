@@ -37,7 +37,7 @@ public class CategoriesService {
         Root<Category> categories = cq.from(Category.class);
         cq.select(categories);
 
-        cq.orderBy(cb.asc(categories.get(Category_.order)));
+        cq.orderBy(cb.asc(categories.get(Category_.position)));
 
         return entityManager.createQuery(cq)
                 .getResultList();

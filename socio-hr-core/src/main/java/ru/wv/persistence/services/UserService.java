@@ -50,6 +50,7 @@ public class UserService {
         });
     }
 
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Optional<User> get(String name) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 
@@ -65,6 +66,7 @@ public class UserService {
         }
     }
 
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public List<User> get() {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 

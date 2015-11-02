@@ -13,6 +13,7 @@ import ru.wv.persistence.entities.User_;
 import ru.wv.persistence.services.UserService;
 
 import javax.ejb.EJB;
+import java.util.Optional;
 
 @RunWith(Arquillian.class)
 public class UserServiceTest {

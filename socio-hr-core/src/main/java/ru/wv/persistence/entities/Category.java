@@ -22,7 +22,7 @@ public class Category {
     private Set<Category> children;
 
     @Column(nullable = false)
-    private long order = 0;
+    private long position;
 
     public long getId() {
         return id;
@@ -56,11 +56,11 @@ public class Category {
         this.children = children;
     }
 
-    public long getOrder() {
-        return order;
+    public long getPosition() {
+        return position;
     }
 
-    public void setOrder(long order) {
-        this.order = order;
+    public void setPosition(long position) {
+        this.position = position;
     }
 }
