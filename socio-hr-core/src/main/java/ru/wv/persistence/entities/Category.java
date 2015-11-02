@@ -21,8 +21,8 @@ public class Category {
     @OneToMany(mappedBy = "parent")
     private Set<Category> children;
 
-    @NotNull
-    private int order;
+    @Column(nullable = false)
+    private long order = 0;
 
     public long getId() {
         return id;
@@ -56,11 +56,11 @@ public class Category {
         this.children = children;
     }
 
-    public int getOrder() {
+    public long getOrder() {
         return order;
     }
 
-    public void setOrder(int order) {
+    public void setOrder(long order) {
         this.order = order;
     }
 }

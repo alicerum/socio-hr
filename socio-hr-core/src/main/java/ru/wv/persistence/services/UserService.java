@@ -75,6 +75,36 @@ public class UserService {
         return entityManager.createQuery(cq).getResultList();
     }
 
+    public Optional<User> getByName(String name) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+
+        CriteriaQuery<User> cq = cb.createQuery(User.class);
+        Root<User> users = cq.from(User.class);
+        cq.select(users);
+        cq.where(cb.equal(users.get(User_.name), name));
+
+        try {
+            return Optional.of(entityManager.createQuery(cq).getSingleResult());
+        } catch (NoResultException e) {
+            return Optional.empty();
+        }
+    }
+
+    public Optional<User> getByEmail(String email) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+
+        CriteriaQuery<User> cq = cb.createQuery(User.class);
+        Root<User> users = cq.from(User.class);
+        cq.select(users);
+        cq.where(cb.equal(users.get(User_.email), email));
+
+        try {
+            return Optional.of(entityManager.createQuery(cq).getSingleResult());
+        } catch (NoResultException e) {
+            return Optional.empty();
+        }
+    }
+
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public void delete(long id) {
         get(id).ifPresent(entityManager::remove);
